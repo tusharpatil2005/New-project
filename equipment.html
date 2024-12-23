@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agriculture Equipment </title>
+  <style>
+    /* Copy the styles from interface */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f3f3f3;
+    }
+
+    .header {
+      background-color: #28a745;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .product-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin: 20px;
+    }
+
+    .product-card {
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 15px;
+      width: 200px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      transition: transform 0.3s;
+      cursor: pointer;
+    }
+
+    .product-card:hover {
+      transform: scale(1.05);
+    }
+
+    .product-card img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+
+    .product-card h3 {
+      font-size: 18px;
+      margin: 10px 0;
+    }
+
+    .product-card p {
+      font-size: 14px;
+      color: #555;
+    }
+
+    .product-card button {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      padding: 8px 12px;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+
+    .product-card button:hover {
+      background-color: #0056b3;
+    }
+
+    .cart-sidebar {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 300px;
+      height: 100%;
+      background: #fff;
+      box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      transition: right 0.3s;
+      overflow-y: auto;
+      z-index: 1000;
+    }
+
+    .cart-sidebar.open {
+      right: 0;
+    }
+
+    .cart-sidebar h3 {
+      margin-top: 0;
+    }
+
+    .cart-sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .cart-sidebar ul li {
+      margin: 10px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .cart-sidebar button {
+      background-color: #dc3545;
+      color: #fff;
+      border: none;
+      padding: 8px 12px;
+      cursor: pointer;
+      border-radius: 5px;
+      width: 80px;
+    }
+
+    .cart-sidebar button:hover {
+      background-color: #c82333;
+    }
+
+    .cart-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #28a745;
+      color: #fff;
+      border: none;
+      padding: 10px;
+      border-radius: 50%;
+      font-size: 20px;
+      cursor: pointer;
+      z-index: 1100;
+    }
+
+    .cart-toggle:hover {
+      background: #218838;
+    }
+
+    /* Modal Styles */
+    #productModal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      width: 400px;
+    }
+
+    .modal-content h2 {
+      margin-top: 0;
+    }
+
+    .close-btn {
+      background-color: #dc3545;
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .close-btn:hover {
+      background-color: #c82333;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Agriculture Equipment </h1>
+  </div>
+
+  <div id="productGrid" class="product-grid">
+    <!-- Example Agriculture Equipment  Products -->
+    <div class="product-card" onclick="showProductDetails('DR ENTERPRISES FARMER SAFETY SHOES ', 1299, 'Farmers who are working mostly in the soil mud, it is the best option to save their feet’s from snake bite, insects in soil, sores etc.')">
+      <img src="assets/Equipment/1.avif" alt="Tomato Seeds">
+      <h3>DR ENTERPRISES FARMER SAFETY SHOES </h3>
+      <p>Price: ₹1299</p>
+      <button onclick="addToCart('DR ENTERPRISES FARMER SAFETY SHOES', 1299, event)">Add to Cart</button>
+    </div>
+    <div class="product-card" onclick="showProductDetails('BHARAT 2 IN 1 HAND WEEDER ', 501, '2IN 1 Weeder Tool is simple to use and versatile. It is used to remove weeds in and around trees, garden lawn edges, vegetable beds etc. The blade is made of mild steel that is hardened and tempered.')">
+        <img src="assets/Equipment/2.avif" alt="Tomato Seeds">
+        <h3>BHARAT 2 IN 1 HAND WEEDER </h3>
+        <p>Price: ₹501</p>
+        <button onclick="addToCart('BHARAT 2 IN 1 HAND WEEDER', 501, event)">Add to Cart</button>
+      </div>
+      <div class="product-card" onclick="showProductDetails('NEPTUNE NF 02 KNAPSACK HAND OPERATED GARDEN SPRAYER ', 1600, 'Neptune NF-02 16L Knapsack Hand Operated Sprayer is a premium quality product from Neptune. All Neptune NF-02 16L Knapsack Hand Operated Sprayer are manufactured by using quality assured material and advanced techniques, which make them up to the standard in this highly challenging field. The materials utilized to manufacture Neptune NF-02 16L Knapsack Hand Operated Sprayer, are sourced from the most reliable and official vendors, chosen after performing detailed market surveys. Neptune products are widely acknowledged in the market for their high quality.')">
+        <img src="assets/Equipment/3.avif" alt="Tomato Seeds">
+        <h3>NEPTUNE NF 02 KNAPSACK HAND OPERATED GARDEN SPRAYER</h3>
+        <p>Price: ₹1600</p>
+        <button onclick="addToCart('NEPTUNE NF 02 KNAPSACK HAND OPERATED GARDEN SPRAYER', 1600, event)">Add to Cart</button>
+      </div>
+      <div class="product-card" onclick="showProductDetails('BHARAT MANUAL WEEDER-10 INCH ', 549, 'It is used to remove weeds in and around trees, garden lawn edges, vegetable beds etc.')">
+        <img src="assets/Equipment/4.avif" alt="Tomato Seeds">
+        <h3>BHARAT MANUAL WEEDER-10 INCH </h3>
+        <p>Price: ₹549</p>
+        <button onclick="addToCart('BHARAT MANUAL WEEDER-10 INCH', 549, event)">Add to Cart</button>
+      </div>
+      <div class="product-card" onclick="showProductDetails('BHARAT AKADI- SICKLE (WITHOUT HANDLE)', 490, 'It is a single-handed agricultural tool designed with variously curved blades and typically used for harvesting, or reaping, grain crops or cutting succulent forage chiefly for feeding livestock, either freshly cut or dried as hay.')">
+        <img src="assets/Equipment/5.avif" alt="Tomato Seeds">
+        <h3>BHARAT AKADI- SICKLE (WITHOUT HANDLE) </h3>
+        <p>Price: ₹490</p>
+        <button onclick="addToCart('BHARAT AKADI- SICKLE (WITHOUT HANDLE)', 490, event)">Add to Cart</button>
+      </div>
+      <div class="product-card" onclick="showProductDetails('LIGHTWEIGHT MULTI UTILTY TORCH ', 301, 'BATTERY: 3.7V 2400 mAh LIGHT SOURCE: LED 2 W BACKUP DURATION: Upto 8 hrs')">
+        <img src="assets/Equipment/6.avif" alt="Tomato Seeds">
+        <h3>LIGHTWEIGHT MULTI UTILTY TORCH  </h3>
+        <p>Price: ₹301</p>
+        <button onclick="addToCart('LIGHTWEIGHT MULTI UTILTY TORCH ', 301, event)">Add to Cart</button>
+      </div>
+      <div class="product-card" onclick="showProductDetails('HECTARE MANGO HARVESTER PICKER ', 255, 'Use and throw blades: We are providing 4 extra blades. These are very sharp paper blades, easily available at any hardware shop.')">
+        <img src="assets/Equipment/7.avif" alt="Tomato Seeds">
+        <h3>HECTARE MANGO HARVESTER PICKER </h3>
+        <p>Price: ₹255</p>
+        <button onclick="addToCart('HECTARE MANGO HARVESTER PICKER ', 255, event)">Add to Cart</button>
+      </div>
+      <div class="product-card" onclick="showProductDetails('TARPAULIN (WATERPROOF, HEAVY DUTY, COLOURS: YELLOW, BLUE & SILVER)', 700, 'ade up of 100% virgin raw material, UV Stabilized, tear-resistant, 100% water-resistant, durable, flexible, and last long for so many years.')">
+        <img src="assets/Equipment/8.avif" alt="Tomato Seeds">
+        <h3>TARPAULIN (WATERPROOF, HEAVY DUTY, COLOURS: YELLOW, BLUE & SILVER) </h3>
+        <p>Price: ₹700</p>
+        <button onclick="addToCart('TARPAULIN (WATERPROOF, HEAVY DUTY, COLOURS: YELLOW, BLUE & SILVER)', 700, event)">Add to Cart</button>
+      </div>
+      <div class="product-card" onclick="showProductDetails('HECTARE MANGO HARVESTER PICKER ', 430, 'User instruction: Pour Two liter of fluid and pump in for 30 times and adjust the nozzle for either fine mist or for pressure jet.')">
+        <img src="assets/Equipment/9.avif" alt="Tomato Seeds">
+        <h3>FARMOGUARD MINI SPRAYER FG 1 L</h3>
+        <p>Price: ₹430</p>
+        <button onclick="addToCart('HECTARE MANGO HARVESTER PICKER ', 430, event)">Add to Cart</button>
+      </div>
+      <div class="product-card" onclick="showProductDetails('VINSPIRE SINGLE CONE VEGETABLE TRANSPLANTING DEVICE (MILD STEEL)', 1320, 'Vinspire Single Cone Vegetable Transplanting Device, VAPL-SS-01 is a premium quality product from Vinspire. All Vinspire VGT01C Single Cone Vegetable Transplanting Device, are manufactured by using quality assured material and advanced techniques, which make them up to the standard in this highly challenging field. The materials utilized to manufacture Vinspire Single Cone Vegetable Transplanting Device, VAPL-SS-01, are sourced from the most reliable and official vendors, chosen after performing detailed market surveys. Vinspire products are widely acknowledged in the market for their high quality.')">
+        <img src="assets/Equipment/10.avif" alt="Tomato Seeds">
+        <h3>VINSPIRE SINGLE CONE VEGETABLE TRANSPLANTING DEVICE (MILD STEEL)</h3>
+        <p>Price: ₹1320</p>
+        <button onclick="addToCart('VINSPIRE SINGLE CONE VEGETABLE TRANSPLANTING DEVICE (MILD STEEL)', 1320, event)">Add to Cart</button>
+      </div>
+    
+      <div class="product-card" onclick="showProductDetails('HEDGE SHEAR GTS007', 555, 'ade up of 100% virgin raw material, UV Stabilized, tear-resistant, 100% water-resistant, durable, flexible, and last long for so many years.')">
+        <img src="assets/Equipment/11.avif" alt="Tomato Seeds">
+        <h3>HEDGE SHEAR GTS007 </h3>
+        <p>Price: ₹555</p>
+        <button onclick="addToCart('HEDGE SHEAR GTS007', 555, event)">Add to Cart</button>
+      </div>
+      <div class="product-card" onclick="showProductDetails('VINSPIRE 3 IN 1 RICE MILL MACHINE -GRINDER ( WITH MOTOR )', 39500, 'Rice mill include vibrator for distoner from rough paddy and dehusking from paddy removing straw and at the end it can separate rice with small and bigger size.')">
+        <img src="assets/Equipment/12.avif" alt="Tomato Seeds">
+        <h3>VINSPIRE 3 IN 1 RICE MILL MACHINE -GRINDER ( WITH MOTOR ) </h3>
+        <p>Price: ₹39500</p>
+        <button onclick="addToCart('VINSPIRE 3 IN 1 RICE MILL MACHINE -GRINDER ( WITH MOTOR )', 39500, event)">Add to Cart</button>
+      </div>
+  </div>
+ 
+
+  
+
+  <!-- Cart Sidebar -->
+  <div id="cart-sidebar" class="cart-sidebar">
+    <h3>Shopping Cart</h3>
+    <ul id="cart-items"></ul>
+    <p>Total: <span id="cart-total">0.00</span></p>
+    <button onclick="toggleCart()">Close</button>
+  </div>
+
+  <!-- Cart Toggle Button -->
+  <button class="cart-toggle" onclick="toggleCart()">🛒</button>
+
+  <!-- Product Details Modal -->
+  <div id="productModal">
+    <div class="modal-content">
+      <h2 id="productName">Product Name</h2>
+      <p id="productPrice">Price: ₹0.00</p>
+      <p id="productDescription">Description of the product.</p>
+      <button class="close-btn" onclick="closeModal()">Close</button>
+    </div>
+  </div>
+
+  <script>
+    let cart = [];
+    let total = 0;
+    let products = [
+      { name: "SAAHO TOMATO SEEDS", price: 974, description: 'Saaho Tomato Seeds is a high-yielding determinate tomato hybrid developed by Syngenta.' },
+      { name: "Carrot Seeds", price: 4, description: 'Organic carrot seeds.' },
+      { name: "Lettuce Seeds", price: 3.5, description: 'Fresh lettuce seeds for easy planting.' }
+    ];
+
+    function addToCart(product, price, event) {
+      event.stopPropagation(); // Prevent the click event from opening the modal
+      cart.push({ product, price });
+      total += price;
+      const cartItems = document.getElementById("cart-items");
+      const cartTotal = document.getElementById("cart-total");
+      const listItem = document.createElement("li");
+      listItem.textContent = `${product} - ₹${price.toFixed(2)}`;
+      const deleteButton = document.createElement("button");
+      deleteButton.textContent = "Delete";
+      deleteButton.onclick = function () {
+        removeFromCart(product, price, listItem);
+      };
+      listItem.appendChild(deleteButton);
+      cartItems.appendChild(listItem);
+      cartTotal.textContent = total.toFixed(2);
+      toggleCart();
+    }
+
+    function removeFromCart(product, price, listItem) {
+      const index = cart.findIndex(item => item.product === product && item.price === price);
+      if (index !== -1) {
+        cart.splice(index, 1);
+        total -= price;
+        listItem.remove();
+        document.getElementById("cart-total").textContent = total.toFixed(2);
+      }
+    }
+
+    function toggleCart() {
+      document.getElementById("cart-sidebar").classList.toggle("open");
+    }
+
+    function showProductDetails(name, price, description) {
+      document.getElementById("productName").textContent = name;
+      document.getElementById("productPrice").textContent = `Price: ₹${price.toFixed(2)}`;
+      document.getElementById("productDescription").textContent = description;
+      document.getElementById("productModal").style.display = "flex";
+    }
+
+    function closeModal() {
+      document.getElementById("productModal").style.display = "none";
+    }
+  </script>
+</body>
+</html>

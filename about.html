@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="about.css">
+  <!-- font awesome cdn link  -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <title>Home | Agriculture E-commerce</title>
+  
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <header>
+
+      <!-- Navbar -->
+          <nav>
+            <div class="logo">
+                <h1 style="font-size: 25px; color: white;">AGRICARD</h1>
+            </div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="weather.html">Weather</a></li>
+                <li><a href="mentor.html">Mentor</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                
+    
+                <!-- More Button with Dropdown -->
+                <li>
+                    <a href="javascript:void(0)" onclick="toggleDropdown()">More</a>
+                    <div class="dropdown" id="moreDropdown">
+                        <a href="seed.html">Seed</a>
+                        <a href="crop_protection.html">Crop Protection Products</a>
+                        <a href="equipment.html">Agriculture Equipment</a>
+                        <a href="crop_health.html">Crop Health Analyzer</a>
+                    </div>
+                </li>
+                <li><a href="profile.html">Profile</a></li>
+            </ul>
+            <div class="hamburger" onclick="toggleSidebar()">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+          </nav>
+    <!-- Sidebar -->
+    <div id="sidebar" class="sidebar">
+      <span class="close-btn" onclick="toggleSidebar()">&times;</span>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="weather.html">Weather</a></li>
+        <li><a href="mentor.html">Mentor</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="profile.html">Profile</a></li>
+      </ul>
+    </div>
+    </header>
+
+    <!-- About Section -->
+    <section class="about-section">
+        <div class="about-content">
+            <h2>About Agricard</h2>
+            <p>AgriMarket is your trusted source for all agricultural products, from seeds and fertilizers to farming tools and machinery. We are committed to empowering farmers and growers with high-quality products and resources to help them succeed.</p>
+            <p>Founded in 2024, our mission is to bridge the gap between technology and agriculture by providing a seamless online platform where farmers can easily access the products they need. We believe in promoting sustainable farming practices and supporting the global agricultural community.</p>
+        </div>
+        <div class="mission-vision">
+            <div class="mission">
+                <h3>Our Mission</h3>
+                <p>To make high-quality agricultural products easily accessible, supporting farmers to increase their productivity and embrace sustainable practices.</p>
+            </div>
+            <div class="vision">
+                <h3>Our Vision</h3>
+                <p>To be a global leader in agricultural e-commerce, fostering growth and innovation in the agricultural sector worldwide.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <h2>Contact Us</h2>
+        <p>We would love to hear from you! If you have any questions, feedback, or concerns, feel free to reach out to us.</p>
+        <div class="contact-details">
+            <p><strong>Email:</strong> support@agrimarket.com</p>
+            <p><strong>Phone:</strong> +1 (123) 456-7890</p>
+            <p><strong>Address:</strong> 1234 Green Fields Ave, Farming Town, USA</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 AgriMarket. All Rights Reserved.</p>
+        <ul class="footer-links">
+            <li><a href="terms.html">Terms of Service</a></li>
+            <li><a href="privacy.html">Privacy Policy</a></li>
+        </ul>
+    </footer>
+
+</body>
+
+<script>
+  // for nav bar 
+
+
+  // Function to toggle the sidebar on and off
+  function toggleSidebar() {
+        const sidebar = document.getElementById("sidebar");
+        sidebar.classList.toggle("open");
+    }
+
+    // Close the sidebar if clicked outside of it
+    window.onclick = function(event) {
+        const sidebar = document.getElementById("sidebar");
+        if (!sidebar.contains(event.target) && !document.querySelector('.hamburger').contains(event.target)) {
+            sidebar.classList.remove("open");
+        }
+
+        // Close the "More" dropdown if clicked outside
+        const dropdown = document.getElementById("moreDropdown");
+        if (!dropdown.contains(event.target) && event.target !== document.querySelector("a[href='javascript:void(0)']")) {
+            dropdown.style.display = 'none';
+        }
+    }
+
+    // Toggle the visibility of the "More" dropdown
+    function toggleDropdown() {
+        const dropdown = document.getElementById("moreDropdown");
+        dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+    }
+</script>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration and Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f9;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            width: 400px;
+        }
+        input[type="text"], input[type="password"], input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            border-radius: 4px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .profile-photo {
+            display: block;
+            margin-top: 10px;
+            max-width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .toggle-link {
+            text-align: center;
+            color: #007BFF;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .toggle-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="formContainer">
+        <!-- Registration Form -->
+        <div id="registrationForm">
+            <h2>Register</h2>
+            <form id="registrationDetails">
+                <input type="text" id="registerUsername" placeholder="Username" required>
+                <input type="password" id="registerPassword" placeholder="Password" required>
+                <input type="file" id="registerPhoto" accept="image/*" required>
+                <button type="submit">Register</button>
+            </form>
+            <img id="registerPhotoPreview" class="profile-photo" src="#" alt="Profile Photo Preview" style="display: none;">
+            <p class="toggle-link" onclick="toggleForm('login')">Already have an account? Login here.</p>
+        </div>
+
+        <!-- Login Form -->
+        <div id="loginForm" style="display: none;">
+            <h2>Login</h2>
+            <form id="loginDetails">
+                <input type="text" id="loginUsername" placeholder="Username" required>
+                <input type="password" id="loginPassword" placeholder="Password" required>
+                <input type="file" id="loginPhoto" accept="image/*" required>
+                <button type="submit">Login</button>
+            </form>
+            <img id="loginPhotoPreview" class="profile-photo" src="#" alt="Profile Photo Preview" style="display: none;">
+            <p class="toggle-link" onclick="toggleForm('register')">Don't have an account? Register here.</p>
+        </div>
+    </div>
+
+    <script>
+        // Function to toggle between registration and login forms
+        function toggleForm(formType) {
+            if (formType === 'register') {
+                document.getElementById('loginForm').style.display = 'none';
+                document.getElementById('registrationForm').style.display = 'block';
+            } else if (formType === 'login') {
+                document.getElementById('registrationForm').style.display = 'none';
+                document.getElementById('loginForm').style.display = 'block';
+            }
+        }
+
+        // Store the registered image URL
+        let registeredImageURL = '';
+
+        // Helper function to strip the base64 metadata prefix (e.g., "data:image/png;base64,")
+        function stripBase64Prefix(base64String) {
+            return base64String.replace(/^data:image\/[a-zA-Z]+;base64,/, '');
+        }
+
+        // Preview the photo during registration
+        document.getElementById('registerPhoto').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const previewImage = document.getElementById('registerPhotoPreview');
+                previewImage.style.display = 'block';
+                previewImage.src = e.target.result;
+                // Store the base64 string of the image (without metadata prefix)
+                registeredImageURL = stripBase64Prefix(e.target.result);
+            };
+            reader.readAsDataURL(file);
+        });
+
+        // Handle registration form submission
+        document.getElementById('registrationDetails').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const username = document.getElementById('registerUsername').value;
+            const password = document.getElementById('registerPassword').value;
+            const photo = document.getElementById('registerPhoto').files[0];
+
+            // Simulate saving the registration data
+            alert('Registered successfully!');
+            toggleForm('login');
+        });
+
+        // Preview the photo during login
+        document.getElementById('loginPhoto').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const previewImage = document.getElementById('loginPhotoPreview');
+                previewImage.style.display = 'block';
+                previewImage.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        });
+
+        // Handle login form submission and compare images
+        document.getElementById('loginDetails').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const username = document.getElementById('loginUsername').value;
+            const password = document.getElementById('loginPassword').value;
+            const loginPhoto = document.getElementById('loginPhoto').files[0];
+
+            // Get the base64 string (without metadata) of the uploaded login photo
+            const loginImageURL = stripBase64Prefix(URL.createObjectURL(loginPhoto));
+
+            // Compare the image URLs (base64 encoded without metadata)
+            if (registeredImageURL === loginImageURL) {
+                // URLs match, redirect to home page
+                window.location.href = 'home.html';
+            } else {
+                // URLs do not match, show error
+                alert('Image does not match. Please try again.');
+            }
+        });
+    </script>
+</body>
+</html>

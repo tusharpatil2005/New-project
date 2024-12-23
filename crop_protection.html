@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crop Protection Products</title>
+  <style>
+    /* Copy the styles from the interface */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f3f3f3;
+    }
+
+    .header {
+      background-color: #28a745;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .product-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin: 20px;
+    }
+
+    .product-card {
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 15px;
+      width: 200px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      transition: transform 0.3s;
+      cursor: pointer;
+    }
+
+    .product-card:hover {
+      transform: scale(1.05);
+    }
+
+    .product-card img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+
+    .product-card h3 {
+      font-size: 18px;
+      margin: 10px 0;
+    }
+
+    .product-card p {
+      font-size: 14px;
+      color: #555;
+    }
+
+    .product-card button {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      padding: 8px 12px;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+
+    .product-card button:hover {
+      background-color: #0056b3;
+    }
+
+    .cart-sidebar {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 300px;
+      height: 100%;
+      background: #fff;
+      box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      transition: right 0.3s;
+      overflow-y: auto;
+      z-index: 1000;
+    }
+
+    .cart-sidebar.open {
+      right: 0;
+    }
+
+    .cart-sidebar h3 {
+      margin-top: 0;
+    }
+
+    .cart-sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .cart-sidebar ul li {
+      margin: 10px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .cart-sidebar button {
+      background-color: #dc3545;
+      color: #fff;
+      border: none;
+      padding: 8px 12px;
+      cursor: pointer;
+      border-radius: 5px;
+      width: 80px;
+    }
+
+    .cart-sidebar button:hover {
+      background-color: #c82333;
+    }
+
+    .cart-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #28a745;
+      color: #fff;
+      border: none;
+      padding: 10px;
+      border-radius: 50%;
+      font-size: 20px;
+      cursor: pointer;
+      z-index: 1100;
+    }
+
+    .cart-toggle:hover {
+      background: #218838;
+    }
+
+    /* Modal Styles */
+    #productModal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      width: 400px;
+    }
+
+    .modal-content h2 {
+      margin-top: 0;
+    }
+
+    .close-btn {
+      background-color: #dc3545;
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .close-btn:hover {
+      background-color: #c82333;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Crop Protection Products</h1>
+  </div>
+
+  <div id="productGrid" class="product-grid">
+    <!-- Example Crop Protection Products -->
+    <div class="product-card" onclick="showProductDetails('Roundup Herbicide ', 260, 'Roundup Herbicide is the most successful and widely used product of Bayer agrochemicals.')">
+      <img src="assets/crop protection/1.avif" alt="Tomato Seeds">
+      <h3>Roundup Herbicide </h3>
+      <p>Price: ₹260</p>
+      <button onclick="addToCart('Roundup Herbicide', 260, event)">Add to Cart</button>
+    </div>
+    <div class="product-card" onclick="showProductDetails('Roundup Herbicide ', 288, 'Glycel Herbicide is a systemic, broad spectrum, non-selective post emergent herbicide.')">
+      <img src="assets/crop protection/2.avif" alt="Tomato Seeds">
+      <h3>Roundup Herbicide </h3>
+      <p>Price: ₹288</p>
+      <button onclick="addToCart('Roundup Herbicide', 288, event)">Add to Cart</button>
+    </div>
+    <div class="product-card" onclick="showProductDetails('Saaf Fungicide ', 323, 'Saaf technical name - Carbendazim 12% + Mancozeb 63% WP')">
+      <img src="assets/crop protection/3.avif" alt="Tomato Seeds">
+      <h3>Saaf Fungicide </h3>
+      <p>Price: ₹323</p>
+      <button onclick="addToCart('Saaf Fungicide', 323, event)">Add to Cart</button>
+    </div>
+    <div class="product-card" onclick="showProductDetails('No Virus Bio Viricide ', 242, 'Geolife No Virus is an organic viricide made with a unique combination of herbs.')">
+      <img src="assets/crop protection/4.avif" alt="Tomato Seeds">
+      <h3>No Virus Bio Viricide </h3>
+      <p>Price: ₹242</p>
+      <button onclick="addToCart('No Virus Bio Viricide', 242, event)">Add to Cart</button>
+    </div>
+    <div class="product-card" onclick="showProductDetails('Coragen Insecticide ', 166, 'It is powered by the active ingredient Rynaxypyr which has a unique mode of action that controls pests resistant to other insecticides.')">
+      <img src="assets/crop protection/5.avif" alt="Tomato Seeds">
+      <h3>Coragen Insecticide</h3>
+      <p>Price: ₹166</p>
+      <button onclick="addToCart('Coragen Insecticide', 166, event)">Add to Cart</button>
+    </div>
+    <div class="product-card" onclick="showProductDetails('Simodis Insecticide ', 735, 'Simodis Insecticide is a robust & 360°solution meticulously designed to protect your crops against a variety of destructive insects.')">
+      <img src="assets/crop protection/6.avif" alt="Tomato Seeds">
+      <h3>Simodis Insecticide</h3>
+      <p>Price: ₹735</p>
+      <button onclick="addToCart('Simodis Insecticide', 735, event)">Add to Cart</button>
+    </div>
+    <div class="product-card" onclick="showProductDetails('EM-1 Insecticide', 196, 'EM 1 Insecticide is Broad-spectrum insecticide that is effective against caterpillars, It is useful for crops such as cotton, okra, cabbage, cauliflower, chili, brinjal, red gram, chickpea, grapes and tea.')">
+      <img src="assets/crop protection/7.avif" alt="Tomato Seeds">
+      <h3>EM-1 Insecticide</h3>
+      <p>Price: ₹196</p>
+      <button onclick="addToCart('EM-1 Insecticide', 196, event)">Add to Cart</button>
+    </div>
+    <div class="product-card" onclick="showProductDetails('V-BIND BIO VIRICIDE ', 320, 'Effective against a wide range of viral diseases, including tobacco mosaic virus (TMV), papaya curl virus, cucumber mosaic virus, and tomato leaf curl virus.')">
+      <img src="assets/crop protection/8.avif" alt="Tomato Seeds">
+      <h3>V-BIND BIO VIRICIDE</h3>
+      <p>Price: ₹320</p>
+      <button onclick="addToCart('V-BIND BIO VIRICIDE', 320, event)">Add to Cart</button>
+    </div>
+    <div class="product-card" onclick="showProductDetails('Phoskill Insecticide ', 199, 'Phoskill Insecticide is a chemical pesticide highly effective broad-spectrum solution for the management of various sucking and chewing pests in Agriculture.')">
+      <img src="assets/crop protection/9.avif" alt="Tomato Seeds">
+      <h3>Phoskill Insecticide</h3>
+      <p>Price: ₹199</p>
+      <button onclick="addToCart('Phoskill Insecticide', 199, event)">Add to Cart</button>
+    </div>
+    <div class="product-card" onclick="showProductDetails('Indofil M-45 Fungicide ', 143, 'King of all fungicides- Broad spectrum fungicide, which controls large no. of diseases with its multisite action, caused by phycomycetous, advance fungi and other group of fungi infecting many crops.')">
+      <img src="assets/crop protection/10.avif" alt="Tomato Seeds">
+      <h3>Indofil M-45 Fungicide</h3>
+      <p>Price: ₹143</p>
+      <button onclick="addToCart('Indofil M-45 Fungicide', 143, event)">Add to Cart</button>
+    </div>
+    <div class="product-card" onclick="showProductDetails('Benevia Insecticide ', 799, 'Benevia FMC offers a unique cross spectrum activity which gives nearly one-shot solution by controlling both sucking and chewing pests.')">
+      <img src="assets/crop protection/11.avif" alt="Tomato Seeds">
+      <h3>Benevia Insecticide</h3>
+      <p>Price: ₹799</p>
+      <button onclick="addToCart('Benevia Insecticide', 799, event)">Add to Cart</button>
+    </div>
+    <div class="product-card" onclick="showProductDetails('Alika Insecticide ', 213, 'Alika Insecticide is a broad-spectrum insecticide that provides excellent control of sucking and chewing pests.')">
+      <img src="assets/crop protection/12.avif" alt="Tomato Seeds">
+      <h3>Alika Insecticide</h3>
+      <p>Price: ₹213</p>
+      <button onclick="addToCart('Alika Insecticide', 213, event)">Add to Cart</button>
+    </div>
+    
+    
+  </div>
+ 
+
+  
+
+  <!-- Cart Sidebar -->
+  <div id="cart-sidebar" class="cart-sidebar">
+    <h3>Shopping Cart</h3>
+    <ul id="cart-items"></ul>
+    <p>Total: <span id="cart-total">0.00</span></p>
+    <button onclick="toggleCart()">Close</button>
+  </div>
+
+  <!-- Cart Toggle Button -->
+  <button class="cart-toggle" onclick="toggleCart()">🛒</button>
+
+  <!-- Product Details Modal -->
+  <div id="productModal">
+    <div class="modal-content">
+      <h2 id="productName">Product Name</h2>
+      <p id="productPrice">Price: ₹0.00</p>
+      <p id="productDescription">Description of the product.</p>
+      <button class="close-btn" onclick="closeModal()">Close</button>
+    </div>
+  </div>
+
+  <script>
+    let cart = [];
+    let total = 0;
+    let products = [
+      { name: "SAAHO TOMATO SEEDS", price: 974, description: 'Saaho Tomato Seeds is a high-yielding determinate tomato hybrid developed by Syngenta.' },
+      { name: "Carrot Seeds", price: 4, description: 'Organic carrot seeds.' },
+      { name: "Lettuce Seeds", price: 3.5, description: 'Fresh lettuce seeds for easy planting.' }
+    ];
+
+    function addToCart(product, price, event) {
+      event.stopPropagation(); // Prevent the click event from opening the modal
+      cart.push({ product, price });
+      total += price;
+      const cartItems = document.getElementById("cart-items");
+      const cartTotal = document.getElementById("cart-total");
+      const listItem = document.createElement("li");
+      listItem.textContent = `${product} - ₹${price.toFixed(2)}`;
+      const deleteButton = document.createElement("button");
+      deleteButton.textContent = "Delete";
+      deleteButton.onclick = function () {
+        removeFromCart(product, price, listItem);
+      };
+      listItem.appendChild(deleteButton);
+      cartItems.appendChild(listItem);
+      cartTotal.textContent = total.toFixed(2);
+      toggleCart();
+    }
+
+    function removeFromCart(product, price, listItem) {
+      const index = cart.findIndex(item => item.product === product && item.price === price);
+      if (index !== -1) {
+        cart.splice(index, 1);
+        total -= price;
+        listItem.remove();
+        document.getElementById("cart-total").textContent = total.toFixed(2);
+      }
+    }
+
+    function toggleCart() {
+      document.getElementById("cart-sidebar").classList.toggle("open");
+    }
+
+    function showProductDetails(name, price, description) {
+      document.getElementById("productName").textContent = name;
+      document.getElementById("productPrice").textContent = `Price: ₹${price.toFixed(2)}`;
+      document.getElementById("productDescription").textContent = description;
+      document.getElementById("productModal").style.display = "flex";
+    }
+
+    function closeModal() {
+      document.getElementById("productModal").style.display = "none";
+    }
+  </script>
+</body>
+</html>

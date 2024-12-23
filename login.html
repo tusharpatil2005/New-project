@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Registration | Agricard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #7bbf4b, #3d704d); /* Earthy green tones */
+            animation: backgroundColorAnimation 12s ease-in-out infinite;
+        }
+
+        @keyframes backgroundColorAnimation {
+            0%, 100% {
+                background: linear-gradient(135deg, #7bbf4b, #3d704d); /* Earthy greens */
+            }
+            25% {
+                background: linear-gradient(135deg, #f1e0c6, #a2785a); /* Soft yellow and brown */
+            }
+            50% {
+                background: linear-gradient(135deg, #d2b97f, #7a6343); /* Light brown and golden */
+            }
+            75% {
+                background: linear-gradient(135deg, #8e7c57, #4d5b3c); /* Muted greens and browns */
+            }
+        }
+
+        /* Heading Style */
+        .heading {
+            font-size: 3.5em;
+            font-weight: 700;
+            color: #7bbf4b; /* Start with green color */
+            margin-bottom: 50px;
+            text-align: center;
+            animation: textColorBounce 3s forwards, textAnimation 3s ease-out forwards;
+        }
+
+        /* Color Animation */
+        @keyframes textColorBounce {
+            0% {
+                color: #7bbf4b; /* Green */
+            }
+            50% {
+                color: #f1e0c6; /* Soft Yellow */
+            }
+            100% {
+                color: white; /* Final stable color: White */
+            }
+        }
+
+        /* Text Movement Animation */
+        @keyframes textAnimation {
+            0% {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            50% {
+                transform: translateY(20px);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .container {
+            width: 350px;
+            background: rgba(255, 255, 255, 0.9); /* Slight transparency */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .container h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            color: #3d704d;
+            font-weight: 700;
+        }
+
+        .container form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-control {
+            margin-bottom: 15px;
+        }
+
+        .form-control label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #3d704d;
+        }
+
+        .form-control input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+            background-color: #f5f5f5;
+            transition: 0.3s;
+        }
+
+        .form-control input:focus {
+            border-color: #7bbf4b;
+            outline: none;
+            box-shadow: 0 0 10px rgba(123, 191, 75, 0.6);
+        }
+
+        .error {
+            color: red;
+            font-size: 0.9em;
+            margin-top: -10px;
+            margin-bottom: 10px;
+            display: none;
+        }
+
+        .btn {
+            padding: 12px;
+            background: linear-gradient(135deg, #7bbf4b, #3d704d);
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            font-weight: 700;
+            cursor: pointer;
+            text-align: center;
+            transition: background 0.3s ease;
+        }
+
+        .btn:hover {
+            background: linear-gradient(135deg, #3d704d, #7bbf4b);
+        }
+
+        .switch {
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .switch a {
+            color: #7bbf4b;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .switch a:hover {
+            color: #3d704d;
+            text-decoration: underline;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- New Animated Welcome Heading -->
+    <h1 class="heading">Welcome to Agricard</h1>
+
+    <div class="container" id="login-container">
+        <h1>Login</h1>
+        <form id="login-form">
+            <div class="form-control">
+                <label for="login-email">Email</label>
+                <input type="email" id="login-email" placeholder="Enter your email">
+                <p class="error" id="email-error">Invalid email.</p>
+            </div>
+            <div class="form-control">
+                <label for="login-password">Password</label>
+                <input type="password" id="login-password" placeholder="Enter your password">
+                <p class="error" id="password-error">Incorrect password.</p>
+            </div>
+            <button type="submit" class="btn">Login</button>
+        </form>
+        <div class="switch">
+            <p>Don't have an account? <a href="#" id="switch-to-register">Register</a></p>
+        </div>
+    </div>
+
+    <div class="container" id="register-container" style="display: none;">
+        <h1>Register</h1>
+        <form id="register-form">
+            <div class="form-control">
+                <label for="register-name">Name</label>
+                <input type="text" id="register-name" placeholder="Enter your name">
+            </div>
+            <div class="form-control">
+                <label for="register-email">Email</label>
+                <input type="email" id="register-email" placeholder="Enter your email">
+            </div>
+            <div class="form-control">
+                <label for="register-password">Password</label>
+                <input type="password" id="register-password" placeholder="Enter your password">
+            </div>
+            <button type="submit" class="btn">Register</button>
+        </form>
+        <div class="switch">
+            <p>Already have an account? <a href="#" id="switch-to-login">Login</a></p>
+        </div>
+    </div>
+
+    <script>
+        const loginContainer = document.getElementById('login-container');
+        const registerContainer = document.getElementById('register-container');
+        const switchToRegister = document.getElementById('switch-to-register');
+        const switchToLogin = document.getElementById('switch-to-login');
+        const loginForm = document.getElementById('login-form');
+        const registerForm = document.getElementById('register-form');
+        const emailError = document.getElementById('email-error');
+        const passwordError = document.getElementById('password-error');
+
+        let registeredUsers = {}; // Object to store registered users
+
+        switchToRegister.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginContainer.style.display = 'none';
+            registerContainer.style.display = 'block';
+        });
+
+        switchToLogin.addEventListener('click', (e) => {
+            e.preventDefault();
+            registerContainer.style.display = 'none';
+            loginContainer.style.display = 'block';
+        });
+
+        registerForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const name = document.getElementById('register-name').value;
+            const email = document.getElementById('register-email').value;
+            const password = document.getElementById('register-password').value;
+
+            if (email && password) {
+                registeredUsers[email] = password; // Save email and password
+                alert('Registration successful! Please login.');
+                registerContainer.style.display = 'none';
+                loginContainer.style.display = 'block';
+            } else {
+                alert('Please fill out all fields.');
+            }
+        });
+
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            emailError.style.display = 'none';
+            passwordError.style.display = 'none';
+
+            if (!registeredUsers[email]) {
+                emailError.style.display = 'block';
+            } else if (registeredUsers[email] !== password) {
+                passwordError.style.display = 'block';
+            } else {
+                alert('Login successful! Redirecting to home page...');
+                window.location.href = 'index.html'; // Replace 'home.html' with the actual home page URL
+            }
+        });
+    </script>
+</body>
+</html>

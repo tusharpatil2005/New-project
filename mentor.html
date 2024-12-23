@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agricultural Solutions - Mentor Section</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #dff7e4, #a8dba8); /* Green gradient background */
+            color: #2c3e50;
+            padding: 0;
+        }
+        
+    /* Navbar Styling */
+nav {
+    background: linear-gradient(to right, #388E3C, #388E3C); /* Green gradient for agriculture */
+    padding: 10px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 10;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+}
+
+nav ul li {
+    margin: 0 20px;
+    position: relative;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+nav ul li a:hover {
+    background-color: #2C6B2F; /* Darker green on hover */
+    transform: scale(1.05);
+}
+
+/* Dropdown Styles */
+nav ul li .dropdown {
+    display: none;
+    position: absolute;
+    top: 35px;
+    left: 0;
+    background-color: #388E3C;
+    padding: 10px;
+    width: 200px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+nav ul li .dropdown a {
+    padding: 10px;
+    color: white;
+    font-size: 16px;
+    display: block;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+nav ul li .dropdown a:hover {
+    background-color: #2C6B2F;
+}
+
+/* Hamburger Icon for Mobile */
+.hamburger {
+    display: none;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 4px;
+    justify-content: center;
+    align-items: center;
+}
+
+.hamburger div {
+    width: 30px;
+    height: 4px;
+    background-color: white;
+    border-radius: 5px;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -250px;
+    width: 250px;
+    height: 100%;
+    background-color: #388E3C;
+    color: white;
+    padding-top: 60px;
+    transition: left 0.3s ease;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    padding: 15px;
+    border-bottom: 1px solid #fff;
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+}
+
+.sidebar ul li a:hover {
+    background-color: #4CAF50;
+}
+
+.sidebar .close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 30px;
+    color: white;
+    cursor: pointer;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    nav ul {
+        display: none;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+
+    .sidebar.open {
+        left: 0;
+    }
+}
+
+
+        /* Main Content */
+        .container {
+            padding: 50px 10%;
+        }
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #27ae60; /* Green heading */
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+        }
+        .problem-section {
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            padding: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .problem-section:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
+        }
+        .problem {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #27ae60; /* Green problem text */
+            cursor: pointer;
+            padding: 10px;
+            border-bottom: 2px solid #f1f1f1;
+            transition: color 0.3s ease;
+        }
+        .problem:hover {
+            color: #16a085; /* Dark green hover */
+        }
+        .solution {
+            display: none;
+            margin-top: 15px;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #34495e;
+            padding-left: 15px;
+            animation: fadeIn 0.3s ease;
+        }
+        .solution ul {
+            list-style-type: disc;
+            padding-left: 25px;
+        }
+        .solution li {
+            margin-bottom: 10px;
+        }
+        .solution p {
+            font-style: italic;
+            color: #16a085; /* Dark green italic text */
+        }
+
+        /* Suggestion Box */
+        .suggestion-box {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+            width: 100%;
+            max-width: 600px;
+        }
+        .suggestion-box input,
+        .suggestion-box textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        .suggestion-box button {
+            background-color: #27ae60; /* Green button */
+            color: white;
+            font-size: 1rem;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .suggestion-box button:hover {
+            background-color: #16a085; /* Dark green button hover */
+        }
+        .thank-you-message {
+            display: none;
+            background-color: #eaf2f8;
+            border: 1px solid #27ae60;
+            padding: 15px;
+            border-radius: 5px;
+            color: #27ae60;
+            text-align: center;
+            margin-top: 20px;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Move button to bottom of page */
+        .contact-btn {
+            display: block;
+            width: 200px;
+            margin: 30px auto;
+            background-color: #27ae60;
+            color: white;
+            padding: 12px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .contact-btn:hover {
+            background-color: #16a085;
+        }
+    </style>
+</head>
+<body>
+
+  <header>
+
+    <!-- Navbar -->
+        <nav>
+          <div class="logo">
+              <h1 style="font-size: 25px; color: white;">AGRICARD</h1>
+          </div>
+          <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="about.html">About</a></li>
+              <li><a href="weather.html">Weather</a></li>
+              <li><a href="mentor.html">Mentor</a></li>
+              <li><a href="contact.html">Contact</a></li>
+              
+  
+              <!-- More Button with Dropdown -->
+              <li>
+                  <a href="javascript:void(0)" onclick="toggleDropdown()">More</a>
+                  <div class="dropdown" id="moreDropdown">
+                      <a href="seed.html">Seed</a>
+                      <a href="crop_protection.html">Crop Protection Products</a>
+                      <a href="equipment.html">Agriculture Equipment</a>
+                      <a href="crop_health.html">Crop Health Analyzer</a>
+                  </div>
+              </li>
+              <li><a href="profile.html">Profile</a></li>
+          </ul>
+          <div class="hamburger" onclick="toggleSidebar()">
+              <div></div>
+              <div></div>
+              <div></div>
+          </div>
+        </nav>
+  <!-- Sidebar -->
+  <div id="sidebar" class="sidebar">
+    <span class="close-btn" onclick="toggleSidebar()">&times;</span>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="weather.html">Weather</a></li>
+      <li><a href="mentor.html">Mentor</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="profile.html">Profile</a></li>
+    </ul>
+  </div>
+  </header>
+
+    <div class="container">
+        <h1>Agricultural Problem Solutions - Mentor Section</h1>
+        
+        <!-- Problem-Solution Section -->
+        <div class="problem-section">
+            <div class="problem">What are the key challenges in agriculture?</div>
+            <div class="solution">
+                <p>Suggested solutions:</p>
+                <ul>
+                    <li>Climate change: Extreme weather conditions such as droughts, floods, and temperature variations affect crop yields.</li>
+                    <li>Water scarcity: Many agricultural areas face water shortages, which impact irrigation and livestock farming.</li>
+                    <li>Soil degradation: Continuous farming without proper soil management can lead to erosion, nutrient depletion, and reduced soil fertility.</li>
+                    <li>Pests and diseases: Infestations can destroy crops and reduce agricultural productivity</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="problem-section">
+            <div class="problem">What are the most important crops grown globally?</div>
+            <div class="solution">
+                <p>Suggested solutions:</p>
+                <ul>
+                    <li>Rice: Staple food for a large portion of the global population, especially in Asia.</li>
+                    <li>Wheat: Another major food crop, especially in temperate climates.</li>
+                    <li>Potatoes: A versatile food crop, grown worldwide.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="problem-section">
+            <div class="problem">What are the main challenges in agriculture?</div>
+            <div class="solution">
+                <p>Suggested solutions:</p>
+                <ul>
+                    <li>limate change, water scarcity, pest management, soil degradation, and access to markets are major challenges facing agriculture.</li>
+                    
+                </ul>
+            </div>
+        </div>
+
+        <div class="problem-section">
+            <div class="problem">What is sustainable farming?</div>
+            <div class="solution">
+                <p>Suggested solutions:</p>
+                <ul>
+                    <li>Sustainable farming promotes practices like crop rotation, conservation tillage, and organic farming to protect resources and ensure long-term productivity.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="problem-section">
+            <div class="problem">What role does technology play in agriculture?</div>
+            <div class="solution">
+                <p>Suggested solutions:</p>
+                <ul>
+                    <li>Technology in agriculture includes precision farming, automated machinery, and data analytics to optimize crop yields and reduce waste.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="problem-section">
+            <div class="problem">How can water usage be reduced in farming?</div>
+            <div class="solution">
+                <p>Suggested solutions:</p>
+                <ul>
+                    <li>Water-efficient techniques like drip irrigation, rainwater harvesting, and drought-resistant crops help conserve water in agriculture.
+
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Contact Us Note -->
+    <div class="contact-note" style="text-align: center; margin-top: 30px; font-size: 1.2rem; color: #34495e;">
+        <p>If you have any questions or need further guidance from a mentor, feel free to <a href="contact.html" style="color: #27ae60; text-decoration: none; font-weight: bold;">Contact Us</a>.</p>
+    </div>
+
+        <!-- Contact Us Button -->
+        <button class="contact-btn" type="button" onclick="window.location.href='contact.html';">Contact Us</button>
+    </div>
+
+    <script>
+
+       // for nav bar 
+  
+  
+    // Function to toggle the sidebar on and off
+    function toggleSidebar() {
+          const sidebar = document.getElementById("sidebar");
+          sidebar.classList.toggle("open");
+      }
+  
+      // Close the sidebar if clicked outside of it
+      window.onclick = function(event) {
+          const sidebar = document.getElementById("sidebar");
+          if (!sidebar.contains(event.target) && !document.querySelector('.hamburger').contains(event.target)) {
+              sidebar.classList.remove("open");
+          }
+  
+          // Close the "More" dropdown if clicked outside
+          const dropdown = document.getElementById("moreDropdown");
+          if (!dropdown.contains(event.target) && event.target !== document.querySelector("a[href='javascript:void(0)']")) {
+              dropdown.style.display = 'none';
+          }
+      }
+  
+      // Toggle the visibility of the "More" dropdown
+      function toggleDropdown() {
+          const dropdown = document.getElementById("moreDropdown");
+          dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+      }
+
+      
+        // Toggle solution visibility
+        const problems = document.querySelectorAll('.problem');
+        problems.forEach(problem => {
+            problem.addEventListener('click', () => {
+                const solution = problem.nextElementSibling;
+                solution.style.display = solution.style.display === 'block' ? 'none' : 'block';
+            });
+        });
+
+        // Handle form submission
+        const form = document.getElementById('suggestionForm');
+        const thankYouMessage = document.getElementById('thankYouMessage');
+        
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = new FormData(form);
+            fetch('send_suggestion.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(result => {
+                if (result === 'success') {
+                    thankYouMessage.style.display = 'block';
+                    form.reset();
+                } else {
+                    alert('There was an error sending your suggestion. Please try again later.');
+                }
+            })
+            .catch(error => alert('There was an error: ' + error));
+        });
+    </script>
+
+</body>
+</html>

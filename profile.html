@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmer User Details Form</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #f9f9f9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-image: url('https://www.transparenttextures.com/patterns/wood-pattern.png');
+            background-repeat: repeat;
+        }
+
+        .navbar {
+            width: 100%;
+            background-color: #6f9d41;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+
+        .navbar h1 {
+            font-size: 20px;
+            margin-left: 20px;
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            margin-right: 20px;
+        }
+
+        .navbar ul li {
+            margin: 0 10px;
+        }
+
+        .navbar ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+
+        .navbar ul li a:hover {
+            color: #b1d99c;
+        }
+
+        .form-container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 1200px;
+            border: 2px solid #6f9d41;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .form-section {
+            width: 48%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h2 {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 28px;
+            color: #6f9d41;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        label {
+            margin-bottom: 10px;
+            font-size: 16px;
+            color: #4d4d4d;
+            font-weight: bold;
+        }
+
+        input, select {
+            padding: 15px;
+            border: 1px solid #b1d99c;
+            border-radius: 5px;
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background-color: #6f9d41;
+            color: white;
+            border: none;
+            padding: 15px;
+            width: 200px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 20px auto 0;
+            display: block;
+        }
+
+        button:hover {
+            background-color: #4f7d29;
+        }
+
+        .form-footer {
+            width: 100%;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .form-footer p {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .form-footer a {
+            color: #6f9d41;
+            text-decoration: none;
+        }
+
+        .form-footer a:hover {
+            text-decoration: underline;
+        }
+
+        #success-message {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+            color: green;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .form-section {
+                width: 100%;
+            }
+
+            button {
+                width: 100%;
+            }
+
+            .navbar ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .navbar ul li {
+                margin: 5px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <h1>Farmer Portal</h1>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="weather.html">Weather</a></li>
+            <li><a href="mentor.html">Mentor</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="profile.html">Profile</a></li>
+        </ul>
+    </div>
+
+    <div class="form-container">
+        <h2>Farmer Details Form</h2>
+        <form name="submit-to-google-sheet" method="post" style="width: 100%; display: flex; flex-wrap: wrap;">
+            <div class="form-section">
+                <label for="name">Farmer Name:</label>
+                <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+
+                <label for="location">Farm Location:</label>
+                <input type="text" id="location" name="location" placeholder="Enter farm location" required>
+
+                <label for="cropType">Type of Crop Grown:</label>
+                <input type="text" id="cropType" name="cropType" placeholder="Enter crop types" required>
+
+                <label for="experience">Years of Experience:</label>
+                <input type="number" id="experience" name="experience" min="0" placeholder="Enter number of years" required>
+            </div>
+
+            <div class="form-section">
+                <label for="certification">Certification Type:</label>
+                <select id="certification" name="certification" required>
+                    <option value="organic">Organic</option>
+                    <option value="non-organic">Non-Organic</option>
+                    <option value="sustainable">Sustainable</option>
+                </select>
+
+                <label for="contact">Contact Number:</label>
+                <input type="tel" id="contact" name="contact" pattern="[0-9]{10}" placeholder="Enter 10-digit phone number" required>
+
+                <label for="alter">Alternate Number:</label>
+                <input type="tel" id="alter" name="alternate_no" pattern="[0-9]{10}" placeholder="Enter 10-digit alternate number" required>
+
+                <label for="alter">Address:</label>
+                <input type="tel" id="alter" name="address"  placeholder="address" required>
+            </div>
+
+            <button type="submit">Submit</button>
+        </form>
+
+        <div id="success-message">Submission Successful!</div>
+
+        <div class="form-footer">
+            <p>Already have an account? <a href="login.html">Login here</a></p>
+            <p>Have questions? <a href="contact.html">Contact Us</a></p>
+        </div>
+    </div>
+
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzaAnH5_AWG2ABR9TZuoSbIPuUoGfe_IYEF-kPvREOOTPMvjj6_vyABJj6_FYtbzkNeYQ/exec';
+        const form = document.forms['submit-to-google-sheet'];
+        const successMessage = document.getElementById('success-message');
+
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+                .then(response => {
+                    console.log('Success!', response);
+                    successMessage.style.display = 'block';
+                    form.reset();
+                })
+                .catch(error => console.error('Error!', error.message));
+        });
+
+        
+        
+    </script>
+
+    
+</body>
+</html>

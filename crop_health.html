@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Health Analyzer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url(images/nature02.jpg) no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        h1 {
+            color: #4CAF50;
+        }
+        input[type="file"] {
+            margin: 20px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f1f8e9;
+            border-radius: 5px;
+        }
+        .result h3 {
+            color: #388E3C;
+        }
+        .preview {
+            max-width: 100%;
+            height: auto;
+            margin-top: 10px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Crop Health Analyzer</h1>
+        <p>Upload an image of your crop to analyze its health.</p>
+
+        <!-- Image Upload -->
+        <input type="file" id="crop-image" accept="image/*" onchange="previewImage()" />
+        <div>
+            <img id="image-preview" class="preview" style="display: none;" />
+        </div>
+
+        <button onclick="analyzeCrop()">Analyze Crop</button>
+
+        <!-- Result -->
+        <div class="result" id="analysis-result" style="display: none;">
+            <h3>Analysis Result:</h3>
+            <p id="result-text"></p>
+        </div>
+    </div>
+
+    <script>
+        // Preview the uploaded image
+        function previewImage() {
+            const fileInput = document.getElementById("crop-image");
+            const preview = document.getElementById("image-preview");
+            const file = fileInput.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    preview.src = e.target.result;
+                    preview.style.display = "block";
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Analyze crop health (mock functionality for now)
+        function analyzeCrop() {
+            const fileInput = document.getElementById("crop-image");
+            const resultDiv = document.getElementById("analysis-result");
+            const resultText = document.getElementById("result-text");
+
+            if (fileInput.files.length === 0) {
+                alert("Please upload an image first.");
+                return;
+            }
+
+            // Mock analysis result
+            const mockResults = [
+                "The crop appears healthy.",
+                "Signs of fungal infection detected. Consider using appropriate fungicides.",
+                "Nutrient deficiency detected. Add nitrogen-rich fertilizer.",
+                "Pest infestation detected. Use organic pesticides to control pests."
+            ];
+            const randomResult = mockResults[Math.floor(Math.random() * mockResults.length)];
+
+            // Display result
+            resultText.innerText = randomResult;
+            resultDiv.style.display = "block";
+        }
+    </script>
+
+</body>
+</html>
